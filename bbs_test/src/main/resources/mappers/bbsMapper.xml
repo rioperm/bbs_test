@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bbsMapper">
+	<resultMap id="bbsMap" type="com.bbs.test.BbsVO.BbsVO">
+		<result property="bbs_id" column="bbs_id"/>
+		<result property="bbs_title" column="bbs_title"/>
+		<result property="bbs_content" column="bbs_content"/>
+		<result property="bbs_date" column="bbs_date"/>
+		<result property="bbs_useyn" column="bbs_useyn"/>
+	</resultMap>
+	
+	<select id="selectBbsList" resultMap="bbsMap">
+		select * from bbs_test where bbs_useyn = 'Y' order by bbs_id desc
+	</select>
+	
+	<select id="selectBbsOne" resultMap="bbsMap" >
+		select * from bbs_test where bbs_id = #{bbs_id} and bbs_useyn = 'Y'
+	</select>
+	
+	<update id="modifyBbs">
+		update bbs_test set 
+			bbs_title = #{bbs_title},
+			bbs_content = #{bbs_content}
+		where bbs_id = #{bbs_id} limit 1		
+	</update>
+	
+	<insert id="insertBbs">
+		insert into bbs_test (bbs_title,bbs_content,bbs_date) values (#{bbs_title},#{bbs_content},now())
+	</insert>
+
+	<update id="deleteBbs">
+		update bbs_test set
+			bbs_useyn = 'N'
+		where bbs_id = #{bbs_id} limit 1
+	</update>
+	
+</mapper>
