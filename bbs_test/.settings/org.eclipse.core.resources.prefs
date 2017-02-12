@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/main/java/com/bbs/test/BbsVO/BbsVO.java=UTF-8
 encoding//src/main/java/com/bbs/test/Controller/BbsController.java=UTF-8
+encoding//src/main/java/com/bbs/test/Vo/BbsVO.java=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/bbs/bbsView.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/bbs/bbsWrite.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/home.jsp=UTF-8

@@ -12,8 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bbs.test.BbsVO.BbsVO;
 import com.bbs.test.Dao.BbsDaoMybatis;
+import com.bbs.test.Vo.BbsVO;
 
 
 

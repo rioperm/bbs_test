@@ -5,7 +5,7 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.bbs.test.BbsVO.BbsVO;
+import com.bbs.test.Vo.BbsVO;
 
 @Repository
 public class BbsDaoMybatis extends SqlSessionDaoSupport {

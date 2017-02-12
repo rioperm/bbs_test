@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.bbs.test.BbsVO.BbsVO" alias="BbsVO"></typeAlias>
+		<typeAlias type="com.bbs.test.Vo.BbsVO" alias="BbsVO"></typeAlias>
 	</typeAliases>
 	
 	<mappers>

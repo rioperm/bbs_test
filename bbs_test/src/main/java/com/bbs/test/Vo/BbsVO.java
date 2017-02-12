@@ -1,4 +1,4 @@
-package com.bbs.test.BbsVO;
+package com.bbs.test.Vo;
 
 public class BbsVO {
 	private String bbs_id;
