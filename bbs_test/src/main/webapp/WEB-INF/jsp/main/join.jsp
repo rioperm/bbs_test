@@ -5,6 +5,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Join</title>
+
+<script type="text/javascript">
+	function checkIdAjax(){
+		var id = $('#member_id').val();
+		$.ajax({
+			type:"POST",
+			url:"/checkId.do",
+			data:{
+				"checkId":id
+			},
+			success:function(data){
+				if($trim(data)=="YES"){
+					alert("가입가능(중복없음)");
+					$('#check').html('<font color="red">사용가능</font>');
+				}else{
+					alert("YES 아님 중복됨");
+					$('#check').html('<font color="blue">불가능</font>');
+				}
+			}
+		})
+	}
+	
+</script>
 </head>
 <body>
 	가입하기
@@ -12,7 +35,7 @@
 		<table>
 			<tr>
 				<td>ID</td>
-				<td><input name="member_id" id="member_id" size="30"></td>
+				<td><input name="member_id" id="member_id" size="30" onkeydown="checkIdAjax()"><span id="check"></span></td>
 			</tr>
 			<tr>
 				<td>PW</td>

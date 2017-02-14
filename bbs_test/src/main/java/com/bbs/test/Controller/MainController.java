@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bbs.test.Dao.BbsDaoMybatis;
 import com.bbs.test.Dao.MemberDaoMybatis;
-import com.bbs.test.Util.SessionCheck;
 import com.bbs.test.Util.Utils;
 import com.bbs.test.Vo.BbsVO;
 import com.bbs.test.Vo.MemberVO;
@@ -42,8 +40,9 @@ public class MainController {
 		String member_pw = (String) request.getParameter("member_pw");
 		
 		mVO.setMember_id(Utils.toConvertString(member_id));
-		mVO.setMember_pw(Utils.toConvertString(member_pw));
-
+		mVO.setMember_pw(Utils.toConvertSHA256(Utils.toConvertString(member_pw)));
+		
+		System.out.println("암호화 후 : " + mVO.getMember_pw());
 		try{
 			mm.insertMember(mVO);	
 		}catch (DataAccessException e){
@@ -63,7 +62,7 @@ public class MainController {
 	@RequestMapping(value = "/main.do")
 	public String main2(Model model, HttpSession session){
 		//세션 체크 메서드 
-		if(!SessionCheck.sessionCheck(session))
+		if(!Utils.sessionCheck(session))
 			return "redirect:/";
 		List<BbsVO> bbsList = bm.selectBbsList();
 		model.addAttribute("bbsList",bbsList);
@@ -81,7 +80,8 @@ public class MainController {
 		String member_pw = (String) request.getParameter("member_pw");
 		
 		mVO.setMember_id(Utils.toConvertString(member_id));
-		mVO.setMember_pw(Utils.toConvertString(member_pw));
+		mVO.setMember_pw(Utils.toConvertSHA256(Utils.toConvertString(member_pw)));
+//		mVO.setMember_pw(Utils.toConvertString(member_pw));
 		
 		MemberVO resultMVo = mm.selectMember(mVO);
 		System.out.println(resultMVo);
@@ -90,7 +90,7 @@ public class MainController {
 			session.setAttribute("loginYn","Y");
 			session.setAttribute("sessionMessage", "");
 			List<BbsVO> bbsList = bm.selectBbsList();
-			model.addAttribute("bbsList",bbsList);
+			model.addAttribute("bbsList",bbsList); 
 			return "redirect:/bbs.do";
 		}else if(resultMVo == null) {
 			session.setAttribute("loginYn","N");
@@ -126,5 +126,14 @@ public class MainController {
 		session.setAttribute("sessionMessage", "405 에러 발생. 접근 방식 잘못 됨");
 		model.addAttribute("contents","error/error404");
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/checkId.do",method=RequestMethod.POST)
+	public String checkId(HttpServletRequest request, MemberVO mVO, Model model, String checkId){
+		checkId = (String) request.getParameter("checkId");
+		mVO.setMember_id(Utils.toConvertString(checkId));
+		
+		model.addAttribute("checkId",checkId);
+		return "main/checkId.tiles";
 	}
 }
