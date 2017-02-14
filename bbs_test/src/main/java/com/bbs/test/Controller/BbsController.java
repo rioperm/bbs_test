@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bbs.test.Dao.BbsDaoMybatis;
+import com.bbs.test.Util.Utils;
 import com.bbs.test.Vo.BbsVO;
 
 @Controller
@@ -38,11 +39,10 @@ public class BbsController {
 	 UnsupportedEncodingException {
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("content");
-		title = new String(title.getBytes("8859_1"),"UTF-8");
-		content = new String(content.getBytes("8859_1"),"UTF-8");
 		
-		bVO.setBbs_title(title);
-		bVO.setBbs_content(content);
+		bVO.setBbs_title(Utils.toConvertString(title));
+		bVO.setBbs_content(Utils.toConvertString(content));
+		
 		bm.insertBbs(bVO);
 		return "redirect:/bbs.do";
 	}
@@ -50,6 +50,7 @@ public class BbsController {
 	@RequestMapping(value="/bbsRead.do")
 	public String bbsRead(BbsVO bVO, Model model, HttpServletRequest request){
 		String select_id = (String) request.getParameter("readId");
+		
 		bVO.setBbs_id(select_id);
 		BbsVO readOne = bm.selectBbsOne(bVO);
 		model.addAttribute("readOne",readOne);
@@ -59,6 +60,7 @@ public class BbsController {
 	@RequestMapping(value="/bbsDelete.do",method = RequestMethod.POST)
 	public String bbsDelete(BbsVO bVO, HttpServletRequest request) {
 		String deleteId = (String) request.getParameter("deleteId");
+		
 		bVO.setBbs_id(deleteId);
 		bm.deleteBbs(bVO);
 		return "redirect:/bbs.do";
@@ -68,6 +70,7 @@ public class BbsController {
 	@RequestMapping(value="/bbsModify.do")
 	public String bbsModify(BbsVO bVO, Model model, HttpServletRequest request){
 		String modifyId = (String) request.getParameter("modifyId");
+		
 		bVO.setBbs_id(modifyId);
 		model.addAttribute("modifyBbs",bm.selectBbsOne(bVO));
 		return "bbs/bbsModify.tiles";
@@ -79,11 +82,11 @@ public class BbsController {
 		String modifyId = (String) request.getParameter("modifyId");
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("content");
-		title = new String(title.getBytes("8859_1"),"UTF-8");
-		content = new String(content.getBytes("8859_1"),"UTF-8");
+		
 		bVO.setBbs_id(modifyId);
-		bVO.setBbs_title(title);
-		bVO.setBbs_content(content);
+		bVO.setBbs_title(Utils.toConvertString(title));
+		bVO.setBbs_content(Utils.toConvertString(content));
+		
 		bm.modifyBbs(bVO);
 		model.addAttribute("readOne",bm.selectBbsOne(bVO));
 		return "bbs/bbsRead.tiles";
