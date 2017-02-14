@@ -9,6 +9,8 @@
 <title>layout</title>
 <tiles:insertAttribute name="sessionCheck"/>
 </head>
+<script type="text/javascript" src="<c:url value="/resources/js/join.js"/>"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 <body>
 	<table border="1" align="center" width="80%;">
 		<tr>

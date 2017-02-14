@@ -5,7 +5,6 @@
 <head>
 	<title>전체보기</title>
 	<link href="<c:url value="/resources/css/bbs.css" />" rel="stylesheet">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 	<script type="text/javascript">
 		$(function() {
 	        $('.viewTd').click(function() {

@@ -128,12 +128,12 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/checkId.do",method=RequestMethod.POST)
+	@RequestMapping(value="/checkId.do")
 	public String checkId(HttpServletRequest request, MemberVO mVO, Model model, String checkId){
 		checkId = (String) request.getParameter("checkId");
 		mVO.setMember_id(Utils.toConvertString(checkId));
-		
 		model.addAttribute("checkId",checkId);
+		System.out.println(checkId);
 		return "main/checkId.tiles";
 	}
 }
