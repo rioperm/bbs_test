@@ -15,24 +15,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bbs.test.Dao.BbsDaoMybatis;
 import com.bbs.test.Vo.BbsVO;
 
-
-
 @Controller
 public class BbsController {
 	
 	@Autowired
-	private BbsDaoMybatis bm;
+	private BbsDaoMybatis bm; 
 	
 	@RequestMapping(value = "/bbs.do", method = RequestMethod.GET)
 	public String bbs(Locale locale, Model model){
 		List<BbsVO> bbsList = bm.selectBbsList();
 		model.addAttribute("bbsList",bbsList);
-		return "bbs/bbsView";
+		return "bbs/bbsView.tiles";
 	}
 	
 	@RequestMapping(value="/bbsWrite.do",method=RequestMethod.GET)
 	public String bbsWrite(Model model){
-		return "bbs/bbsWrite";
+		return "bbs/bbsWrite.tiles";
 	}
 	
 	@RequestMapping(value="/bbsWriteOk.do",method = RequestMethod.POST)
@@ -55,7 +53,7 @@ public class BbsController {
 		bVO.setBbs_id(select_id);
 		BbsVO readOne = bm.selectBbsOne(bVO);
 		model.addAttribute("readOne",readOne);
-		return "bbs/bbsRead";
+		return "bbs/bbsRead.tiles";
 	}
 	
 	@RequestMapping(value="/bbsDelete.do",method = RequestMethod.POST)
@@ -72,7 +70,7 @@ public class BbsController {
 		String modifyId = (String) request.getParameter("modifyId");
 		bVO.setBbs_id(modifyId);
 		model.addAttribute("modifyBbs",bm.selectBbsOne(bVO));
-		return "bbs/bbsModify";
+		return "bbs/bbsModify.tiles";
 	}
 
 	@RequestMapping(value="/bbsModifyOk.do",method = RequestMethod.POST)
@@ -88,15 +86,7 @@ public class BbsController {
 		bVO.setBbs_content(content);
 		bm.modifyBbs(bVO);
 		model.addAttribute("readOne",bm.selectBbsOne(bVO));
-		return "bbs/bbsRead";
+		return "bbs/bbsRead.tiles";
 	}
 	
-	@RequestMapping(value="/test.do")
-	public String test(BbsVO bVO, Model model){
-		
-		bm.selectBbsList();
-		
-		//model.addAttribute("readList",bm.selectBbsList());
-		return "bbs/bbsView";
-	}
 }

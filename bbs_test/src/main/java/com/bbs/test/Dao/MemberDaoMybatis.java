@@ -16,12 +16,12 @@ public class MemberDaoMybatis extends SqlSessionDaoSupport {
 		return getSqlSession().selectOne("memberMapper.selectMember",mVO);
 	}
 	
-	public MemberVO updateMember(MemberVO mVO) {
-		return getSqlSession().selectOne("memberMapper.updateMember",mVO);
-	}
-	public void deleteMember(MemberVO mVO) {
-		getSqlSession().update("memberMapper.deleteMember",mVO);
-	}
+//	public MemberVO updateMember(MemberVO mVO) {
+//		return getSqlSession().selectOne("memberMapper.updateMember",mVO);
+//	}
+//	public void deleteMember(MemberVO mVO) {
+//		getSqlSession().update("memberMapper.deleteMember",mVO);
+//	}
 	
 	
 }
