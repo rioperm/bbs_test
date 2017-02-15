@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div style="border:red 1px solid; padding:10px;">
+<div style="border:red 0px solid; padding:10px;">
 	<c:choose>
 		<c:when test="${sessionScope.loginYn == null || sessionScope.loginYn == 'N'}">
 			<input type="button" value="가입하기" class="joinBtn" onclick="window.location='/test/join.do'">

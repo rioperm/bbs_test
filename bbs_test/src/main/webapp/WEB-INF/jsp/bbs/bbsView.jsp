@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
@@ -8,7 +9,7 @@
 	<script type="text/javascript">
 		$(function() {
 	        $('.viewTd').click(function() {
-	           window.location.href=("/test/bbsRead.do?readId="+$(this).attr('alt'));
+	           window.location.href=("/test/bbsRead.do?readId="+$(this).attr('id'));
 	        });
 	    });
 	</script>
@@ -27,10 +28,15 @@
 			<td style="width:150;">작성일</td>
 		</tr>
  		<c:forEach items="${bbsList}" var="bbsList">
+ 			<c:set var="date" value="${fn:split(bbsList.bbs_date,' ')}"/>
 			<tr>
-				<td class="viewTd" alt="${bbsList.bbs_id}"><c:out value="${bbsList.bbs_id}"/></td>
-				<td class="viewTd" alt="${bbsList.bbs_id}"><c:out value="${bbsList.bbs_title}"/></td>
-				<td class="viewTd" alt="${bbsList.bbs_id}"><c:out value="${bbsList.bbs_date}"/></td>
+				<td class="viewTd" id="${bbsList.bbs_id}"><c:out value="${bbsList.bbs_id}"/></td>
+				<td class="viewTd" id="${bbsList.bbs_id}"><c:out value="${bbsList.bbs_title}"/></td>
+				<c:forEach var="frontDate" items="${date}" varStatus="d">
+					<c:if test="${d.count==1}">
+						<td class="viewTd" id="${bbsList.bbs_id}"><c:out value="${frontDate}"/></td>
+					</c:if>							
+				</c:forEach>
 			</tr> 
 		</c:forEach>
 	</table>

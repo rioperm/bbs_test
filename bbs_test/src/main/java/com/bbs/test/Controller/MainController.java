@@ -72,7 +72,6 @@ public class MainController {
 //		mVO.setMember_pw(Utils.toConvertString(member_pw));
 		
 		MemberVO resultMVo = mm.selectMember(mVO);
-		System.out.println(resultMVo);
 		if(resultMVo != null)
 		{
 			session.setAttribute("loginYn","Y");

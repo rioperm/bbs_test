@@ -53,6 +53,9 @@ public class BbsController {
 		
 		bVO.setBbs_id(select_id);
 		BbsVO readOne = bm.selectBbsOne(bVO);
+		// '2017-02-12 20:13:50' bbs_date 값을 '2017-02-12'로 변경 
+		// 띄어쓰기 로 구분된 형태 
+		readOne.setBbs_date(Utils.splitDate(readOne.getBbs_date()));
 		model.addAttribute("readOne",readOne);
 		return "bbs/bbsRead.tiles";
 	}

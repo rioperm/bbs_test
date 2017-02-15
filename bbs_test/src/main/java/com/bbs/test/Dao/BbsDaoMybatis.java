@@ -10,7 +10,7 @@ import com.bbs.test.Vo.BbsVO;
 @Repository
 public class BbsDaoMybatis extends SqlSessionDaoSupport {
 	public BbsDaoMybatis() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public List<BbsVO> selectBbsList(){

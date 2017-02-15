@@ -46,6 +46,10 @@ public class Utils {
 		return SHA;
 	}
 	
-	
+	public static String splitDate(String string) {
+		String[] stringArray = string.split("\\s+");
+		string = stringArray[0];
+		return string;
+	}
 	
 }
