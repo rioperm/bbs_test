@@ -6,24 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>layout</title>
-<tiles:insertAttribute name="sessionCheck"/>
+<title>simpleLayout</title>
 </head>
+<script type="text/javascript" src="<c:url value="/resources/js/join.js"/>"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 <body>
-	<table border="0" align="center" width="80%;">
-		<tr>
-			<td height="30">
-				<c:if test="${!empty sessionScope.sessionMessage}">&nbsp;&nbsp;<font color="red">${sessionScope.sessionMessage}</font></c:if>
-				<tiles:insertAttribute name="header" />
-			</td>
-		</tr>
+	<table border="1" align="center" width="80%;">
 		<tr>
 			<td><tiles:insertAttribute name="main"/></td>
 		</tr>
-		<tr>
-			<td><tiles:insertAttribute name="footer"/></td>
-		</tr> 
 	</table>
 </body>
 </html>

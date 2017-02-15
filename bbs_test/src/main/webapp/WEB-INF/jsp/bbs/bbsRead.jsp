@@ -47,7 +47,7 @@
 			</tr>
 			<tr>
 				<td colspan='2'>
-					<input type="button" value="뒤로가기" Onclick="javascript:history.go(-1)">
+					<input type="button" value="뒤로가기" Onclick="location.href='/test/main.do'">
 					<input type="button" value="수정하기" class="modBtn" alt="${readOne.bbs_id}">
 					<input type="button" value="삭제하기" class="delBtn" alt="${readOne.bbs_id}">
 				</td>

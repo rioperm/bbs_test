@@ -20,8 +20,8 @@
 		select * from member where member_id = #{member_id} and member_pw = #{member_pw} limit 1
 	</select>
 	
-	<select id="selectMemberOne" resultMap="memberMap">
-		select * from member where member_id = #{member_id} limit 1
+	<select id="selectMemberOne" resultType="string">
+		select member_id from member where member_id = #{member_id} limit 1
 	</select>
 	
 	

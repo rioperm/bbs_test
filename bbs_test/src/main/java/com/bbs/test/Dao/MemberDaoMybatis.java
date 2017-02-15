@@ -23,7 +23,7 @@ public class MemberDaoMybatis extends SqlSessionDaoSupport {
 //		getSqlSession().update("memberMapper.deleteMember",mVO);
 //	}
 	
-	public MemberVO selectMemberOne(MemberVO mVO) {
+	public String selectMemberOne(MemberVO mVO) {
 		return getSqlSession().selectOne("memberMapper.selectMemberOne",mVO);
 	}
 	

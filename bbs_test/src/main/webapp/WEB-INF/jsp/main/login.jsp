@@ -7,16 +7,16 @@
 <title>Login</title>
 </head>
 <body>
-	로그인하기
+	로그인하기 <input type="button" value="신규가입" onclick="location.href='/test/join.do'">
 	<form name="loginForm" id="loginForm" action="/test/loginOk.do" method="post">
 		<table>
 			<tr>
 				<td>ID</td>
-				<td><input name="member_id" id="member_id" size="30"></td>
+				<td><input name="member_id" id="member_id" size="20"></td>
 			</tr>
 			<tr>
 				<td>PW</td>
-				<td><input name="member_pw" id="member_pw" size="30"></td>
+				<td><input name="member_pw" id="member_pw" size="20"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
