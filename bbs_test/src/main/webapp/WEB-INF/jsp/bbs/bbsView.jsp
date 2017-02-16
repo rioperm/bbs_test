@@ -14,18 +14,17 @@
 	    });
 	</script>
 </head>
-
 <body>
 <h1>
 	작성 글 확인
 	<input type="button" value="글쓰기" OnClick="window.location='/test/bbsWrite.do'">
 </h1>
-	
 	<table border="1" style="text-align:center;">
 		<tr>
 			<td style="width:50;">번호</td>
 			<td style="width:100;">제목</td>
 			<td style="width:150;">작성일</td>
+			<td style="width:100;">작성자</td>
 		</tr>
  		<c:forEach items="${bbsList}" var="bbsList">
  			<c:set var="date" value="${fn:split(bbsList.bbs_date,' ')}"/>
@@ -35,11 +34,11 @@
 				<c:forEach var="frontDate" items="${date}" varStatus="d">
 					<c:if test="${d.count==1}">
 						<td class="viewTd" id="${bbsList.bbs_id}"><c:out value="${frontDate}"/></td>
-					</c:if>							
+					</c:if>	
 				</c:forEach>
+				<td class="viewTd" id="${bbsList.bbs_id}"><c:out value="${bbsList.member_id}"/></td>
 			</tr> 
 		</c:forEach>
 	</table>
-	
 </body>
 </html>

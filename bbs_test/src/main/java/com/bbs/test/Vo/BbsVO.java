@@ -6,17 +6,21 @@ public class BbsVO {
 	private String bbs_content;
 	private String bbs_date;
 	private String bbs_useyn;
+	private String member_nid;
+	private String member_id;
 	
 	public BbsVO(){
 		
 	}
 	
-	public BbsVO(String bbs_id, String bbs_title, String bbs_content, String bbs_date, String bbs_useyn){
+	public BbsVO(String bbs_id, String bbs_title, String bbs_content, String bbs_date, String bbs_useyn, String member_nid, String member_id){
 		this.bbs_id=bbs_id;
 		this.bbs_title=bbs_title;
 		this.bbs_content=bbs_content;
 		this.bbs_date=bbs_date;
 		this.bbs_useyn=bbs_useyn;
+		this.member_nid=member_nid;
+		this.member_id=member_id;
 	}
 
 	public String getBbs_id() {
@@ -59,5 +63,20 @@ public class BbsVO {
 		this.bbs_useyn = bbs_useyn;
 	}
 	
+	public String getMember_nid() {
+		return member_nid;
+	}
+	
+	public void setMember_nid(String member_nid) {
+		this.member_nid = member_nid;
+	}
+	
+	public String getMember_id() {
+		return member_id;
+	}
+	
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
 	
 }

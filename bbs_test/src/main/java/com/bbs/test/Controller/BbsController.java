@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,13 +36,14 @@ public class BbsController {
 	}
 	
 	@RequestMapping(value="/bbsWriteOk.do",method = RequestMethod.POST)
-	public String bbsWriteOk(BbsVO bVO, Model model,HttpServletRequest request) throws 
+	public String bbsWriteOk(BbsVO bVO, Model model,HttpServletRequest request, HttpSession session) throws 
 	 UnsupportedEncodingException {
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("content");
 		
 		bVO.setBbs_title(Utils.toConvertString(title));
 		bVO.setBbs_content(Utils.toConvertString(content));
+		bVO.setMember_nid((String)session.getAttribute("loginNID"));
 		
 		bm.insertBbs(bVO);
 		return "redirect:/bbs.do";

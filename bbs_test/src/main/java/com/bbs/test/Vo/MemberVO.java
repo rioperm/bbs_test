@@ -6,17 +6,20 @@ public class MemberVO {
 	String member_useyn = "";
 	String join_date = "";
 	String modify_date = "";
+	String member_nid = "";
 	
+
 	public MemberVO(){
 		
 	}
 	
-	public MemberVO(String member_id, String member_pw, String member_useyn,String join_date, String modify_date){
+	public MemberVO(String member_id, String member_pw, String member_useyn,String join_date, String modify_date, String member_nid){
 		this.member_id=member_id;
 		this.member_pw=member_pw;
 		this.member_useyn=member_useyn;
 		this.join_date=join_date;
 		this.modify_date=modify_date;
+		this.member_nid=member_nid;
 	}
 
 	public String getMember_id() {
@@ -57,6 +60,14 @@ public class MemberVO {
 
 	public void setModify_date(String modify_date) {
 		this.modify_date = modify_date;
+	}
+	
+	public String getMember_nid() {
+		return member_nid;
+	}
+	
+	public void setMember_nid(String member_nid) {
+		this.member_nid = member_nid;
 	}
 
 }

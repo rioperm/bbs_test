@@ -11,10 +11,11 @@
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 <body>
-	<table border="0" align="center" width="80%;">
+	<table border="1" align="center" width="80%;">
 		<tr>
 			<td height="30">
-				<c:if test="${!empty sessionScope.sessionMessage}">&nbsp;&nbsp;<font color="red">${sessionScope.sessionMessage}</font></c:if>
+				<c:if test="${!empty sessionScope.sessionMessage}">&nbsp;&nbsp;
+				<font color="red">${sessionScope.sessionMessage}</font></c:if>
 				<tiles:insertAttribute name="header" />
 			</td>
 		</tr>

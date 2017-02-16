@@ -10,6 +10,7 @@
 		<result property="member_useyn" column="member_useyn"/>
 		<result property="join_date" column="join_date"/>
 		<result property="modify_date" column="modify_date"/>
+		<result property="member_nid" column="member_nid"/>
 	</resultMap>
 	
 	<insert id="insertMember" >
@@ -23,7 +24,4 @@
 	<select id="selectMemberOne" resultType="string">
 		select member_id from member where member_id = #{member_id} limit 1
 	</select>
-	
-	
-	
 </mapper>

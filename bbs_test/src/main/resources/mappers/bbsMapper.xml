@@ -10,10 +10,14 @@
 		<result property="bbs_content" column="bbs_content"/>
 		<result property="bbs_date" column="bbs_date"/>
 		<result property="bbs_useyn" column="bbs_useyn"/>
+		<result property="member_nid" column="member_nid"/>
+		<result property="member_id" column="member_id"/>
 	</resultMap>
 	
 	<select id="selectBbsList" resultMap="bbsMap">
-		select * from bbs_test where bbs_useyn = 'Y' order by bbs_id desc
+		select a.*, b.member_id from bbs_test a, member b 
+		where a.member_nid = b.member_nid 
+		and a.bbs_useyn = 'Y' order by a.bbs_id desc
 	</select>
 	
 	<select id="selectBbsOne" resultMap="bbsMap" >
@@ -28,7 +32,10 @@
 	</update>
 	
 	<insert id="insertBbs">
-		insert into bbs_test (bbs_title,bbs_content,bbs_date) values (#{bbs_title},#{bbs_content},now())
+		insert into bbs_test 
+			(bbs_title,bbs_content,bbs_date,member_nid) 
+		values 
+			(#{bbs_title},#{bbs_content},now(),#{member_nid})
 	</insert>
 
 	<update id="deleteBbs">

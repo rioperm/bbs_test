@@ -24,13 +24,15 @@ public class MainController {
 	private MemberDaoMybatis mm;
 	
 	@Autowired
-	private BbsDaoMybatis bm; 
+	private BbsDaoMybatis bm;
+	
+	private static String resultReturn="";
 	
 	@RequestMapping(value = "/main.do")
 	public String main2(Model model, HttpSession session){
 		//세션 체크 메서드 
-		if(!Utils.sessionCheck(session))
-			return "redirect:/";
+//		if(!Utils.sessionCheck(session))
+//			return "redirect:/";
 		List<BbsVO> bbsList = bm.selectBbsList();
 		model.addAttribute("bbsList",bbsList);
 		return "bbs/bbsView.tiles";
@@ -59,6 +61,9 @@ public class MainController {
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login(MemberVO mVO,HttpSession session){
+		if(Utils.sessionCheck(session)){
+			return "redirect:/main.do";
+		}
 		return "login.tiles";
 	}
 	
@@ -75,17 +80,18 @@ public class MainController {
 		if(resultMVo != null)
 		{
 			session.setAttribute("loginYn","Y");
+			session.setAttribute("loginNID",resultMVo.getMember_nid());
 			session.setAttribute("sessionMessage", "");
 			List<BbsVO> bbsList = bm.selectBbsList();
 			model.addAttribute("bbsList",bbsList); 
-			return "redirect:/bbs.do";
+			resultReturn = "redirect:/bbs.do";
 		}else if(resultMVo == null) {
 			session.setAttribute("loginYn","N");
 			session.setAttribute("sessionMessage", "아이디 또는 비밀번호 오류");
 			System.out.println("로그인 실패");
-			return "redirect:/";
+			resultReturn = "redirect:/";
 		}
-		return "redirect:/";
+		return resultReturn;
 	}
 	
 	@RequestMapping(value = "/logout.do")
@@ -93,6 +99,7 @@ public class MainController {
 		System.out.println("Logout!!!!!");
 		// 특정 세션 값 제거
 		session.removeAttribute("loginYn");
+		session.removeAttribute("loginNID");
 		// 세션 전체 무효화
 //		session.invalidate();
 		return "redirect:/";

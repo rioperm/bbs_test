@@ -6,7 +6,6 @@
 		<typeAlias type="com.bbs.test.Vo.BbsVO" alias="BbsVO"></typeAlias>
 		<typeAlias type="com.bbs.test.Vo.MemberVO" alias="MemberVO"></typeAlias>
 	</typeAliases>
-
 			
 	<mappers>
 		<mapper resource="mappers/bbsMapper.xml"></mapper>
