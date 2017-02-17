@@ -14,14 +14,18 @@
 	</resultMap>
 	
 	<insert id="insertMember" >
-		insert into member (member_id,member_pw) values (#{member_id}, #{member_pw})
+		insert into member (member_id,member_pw) 
+		values (#{member_id}, #{member_pw})
 	</insert>
 	
 	<select id="selectMember" resultMap="memberMap">
-		select * from member where member_id = #{member_id} and member_pw = #{member_pw} limit 1
+		select * from member 
+		where member_id = #{member_id} 
+		and member_pw = #{member_pw} limit 1
 	</select>
 	
 	<select id="selectMemberOne" resultType="string">
-		select member_id from member where member_id = #{member_id} limit 1
+		select member_id from member 
+		where member_id = #{member_id} limit 1
 	</select>
 </mapper>

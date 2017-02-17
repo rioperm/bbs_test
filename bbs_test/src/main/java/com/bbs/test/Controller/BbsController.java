@@ -21,11 +21,11 @@ import com.bbs.test.Vo.BbsVO;
 public class BbsController {
 	
 	@Autowired
-	private BbsDaoMybatis bm; 
+	private BbsDaoMybatis bbsDaoMybatis; 
 	
 	@RequestMapping(value = "/bbs.do", method = RequestMethod.GET)
 	public String bbs(Locale locale, Model model){
-		List<BbsVO> bbsList = bm.selectBbsList();
+		List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList();
 		model.addAttribute("bbsList",bbsList);
 		return "bbs/bbsView.tiles";
 	}
@@ -45,7 +45,7 @@ public class BbsController {
 		bVO.setBbs_content(Utils.toConvertString(content));
 		bVO.setMember_nid((String)session.getAttribute("loginNID"));
 		
-		bm.insertBbs(bVO);
+		bbsDaoMybatis.insertBbs(bVO);
 		return "redirect:/bbs.do";
 	}
 	
@@ -54,7 +54,7 @@ public class BbsController {
 		String select_id = (String) request.getParameter("readId");
 		
 		bVO.setBbs_id(select_id);
-		BbsVO readOne = bm.selectBbsOne(bVO);
+		BbsVO readOne = bbsDaoMybatis.selectBbsOne(bVO);
 		// '2017-02-12 20:13:50' bbs_date 값을 '2017-02-12'로 변경 
 		// 띄어쓰기 로 구분된 형태 
 		readOne.setBbs_date(Utils.splitDate(readOne.getBbs_date()));
@@ -67,17 +67,17 @@ public class BbsController {
 		String deleteId = (String) request.getParameter("deleteId");
 		
 		bVO.setBbs_id(deleteId);
-		bm.deleteBbs(bVO);
+		bbsDaoMybatis.deleteBbs(bVO);
 		return "redirect:/bbs.do";
 	}
 	
-	//modify 할 게시글 1개 read - get 방식
+	//modify 할 게시글 1개 read 
 	@RequestMapping(value="/bbsModify.do")
 	public String bbsModify(BbsVO bVO, Model model, HttpServletRequest request){
 		String modifyId = (String) request.getParameter("modifyId");
 		
 		bVO.setBbs_id(modifyId);
-		model.addAttribute("modifyBbs",bm.selectBbsOne(bVO));
+		model.addAttribute("modifyBbs",bbsDaoMybatis.selectBbsOne(bVO));
 		return "bbs/bbsModify.tiles";
 	}
 
@@ -92,8 +92,8 @@ public class BbsController {
 		bVO.setBbs_title(Utils.toConvertString(title));
 		bVO.setBbs_content(Utils.toConvertString(content));
 		
-		bm.modifyBbs(bVO);
-		model.addAttribute("readOne",bm.selectBbsOne(bVO));
+		bbsDaoMybatis.modifyBbs(bVO);
+		model.addAttribute("readOne",bbsDaoMybatis.selectBbsOne(bVO));
 		return "bbs/bbsRead.tiles";
 	}
 	

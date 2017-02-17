@@ -21,19 +21,18 @@ import com.bbs.test.Vo.MemberVO;
 @Controller
 public class MainController {
 	@Autowired
-	private MemberDaoMybatis mm;
+	private MemberDaoMybatis memberDaoMybatis;
 	
 	@Autowired
-	private BbsDaoMybatis bm;
+	private BbsDaoMybatis bbsDaoMybatis;
 	
-	private static String resultReturn="";
 	
 	@RequestMapping(value = "/main.do")
 	public String main2(Model model, HttpSession session){
 		//세션 체크 메서드 
 //		if(!Utils.sessionCheck(session))
 //			return "redirect:/";
-		List<BbsVO> bbsList = bm.selectBbsList();
+		List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList();
 		model.addAttribute("bbsList",bbsList);
 		return "bbs/bbsView.tiles";
 	}
@@ -52,7 +51,7 @@ public class MainController {
 		mVO.setMember_pw(Utils.toConvertSHA256(Utils.toConvertString(member_pw)));
 		
 		try{
-			mm.insertMember(mVO);	
+			memberDaoMybatis.insertMember(mVO);	
 		}catch (DataAccessException e){
 			e.printStackTrace();
 		}
@@ -76,22 +75,21 @@ public class MainController {
 		mVO.setMember_pw(Utils.toConvertSHA256(Utils.toConvertString(member_pw)));
 //		mVO.setMember_pw(Utils.toConvertString(member_pw));
 		
-		MemberVO resultMVo = mm.selectMember(mVO);
+		MemberVO resultMVo = memberDaoMybatis.selectMember(mVO);
 		if(resultMVo != null)
 		{
 			session.setAttribute("loginYn","Y");
 			session.setAttribute("loginNID",resultMVo.getMember_nid());
 			session.setAttribute("sessionMessage", "");
-			List<BbsVO> bbsList = bm.selectBbsList();
+			List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList();
 			model.addAttribute("bbsList",bbsList); 
-			resultReturn = "redirect:/bbs.do";
-		}else if(resultMVo == null) {
-			session.setAttribute("loginYn","N");
-			session.setAttribute("sessionMessage", "아이디 또는 비밀번호 오류");
-			System.out.println("로그인 실패");
-			resultReturn = "redirect:/";
+			return "redirect:/bbs.do";
 		}
-		return resultReturn;
+		
+		session.setAttribute("loginYn","N");
+		session.setAttribute("sessionMessage", "아이디 또는 비밀번호 오류");
+		System.out.println("로그인 실패");
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/logout.do")
@@ -105,32 +103,13 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/error404.do",method=RequestMethod.GET)
-    public String error404(HttpServletResponse res, HttpSession session) //throws Exception
-    {
-		System.out.println("404 여기로");
-		//응답 코드를 정상값 (200) 으로 변경해 줌
-        res.setStatus(HttpServletResponse.SC_OK);
-        session.setAttribute("sessionMessage", "404 에러 발생");
-        return "redirect:/";
-    }
-	
-	@RequestMapping(value="/error405.do",method=RequestMethod.GET)
-	public String error405(HttpServletResponse res, HttpSession session) //throws Exception
-	{
-		System.out.println("405 여기로");
-		res.setStatus(HttpServletResponse.SC_OK);
-		session.setAttribute("sessionMessage", "405 에러 발생. 접근 방식 잘못 됨");
-		return "redirect:/";
-	}
-	
 	@RequestMapping(value="/checkId.do")
 	public String checkId(HttpServletRequest request, MemberVO mVO, Model model, String checkId){
 		checkId = (String) request.getParameter("checkId");
 		mVO.setMember_id(Utils.toConvertString(checkId));
-		String resultId = mm.selectMemberOne(mVO);
+		String resultId = memberDaoMybatis.selectMemberOne(mVO);
 		
-		String joinAbleYn="";
+		String joinAbleYn="NO";
 		if(checkId.equals(resultId)){
 			joinAbleYn = "NO";
 		}else{
@@ -140,4 +119,28 @@ public class MainController {
 		
 		return "checkId.tiles";
 	}
+	
+	@RequestMapping(value="/test.do")
+	public String test(){
+		return ".main";
+	}
+	
+//	@RequestMapping(value="/error404.do",method=RequestMethod.GET)
+//    public String error404(HttpServletResponse res, HttpSession session) //throws Exception
+//    {
+//		System.out.println("404 여기로");
+//		//응답 코드를 정상값 (200) 으로 변경해 줌
+//        res.setStatus(HttpServletResponse.SC_OK);
+//        session.setAttribute("sessionMessage", "404 에러 발생");
+//        return "redirect:/";
+//    }
+//	
+//	@RequestMapping(value="/error405.do",method=RequestMethod.GET)
+//	public String error405(HttpServletResponse res, HttpSession session) //throws Exception
+//	{
+//		System.out.println("405 여기로");
+//		res.setStatus(HttpServletResponse.SC_OK);
+//		session.setAttribute("sessionMessage", "405 에러 발생. 접근 방식 잘못 됨");
+//		return "redirect:/";
+//	}
 }
