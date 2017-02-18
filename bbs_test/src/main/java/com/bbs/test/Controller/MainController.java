@@ -26,7 +26,6 @@ public class MainController {
 	@Autowired
 	private BbsDaoMybatis bbsDaoMybatis;
 	
-	
 	@RequestMapping(value = "/main.do")
 	public String main2(Model model, HttpSession session){
 		//세션 체크 메서드 
