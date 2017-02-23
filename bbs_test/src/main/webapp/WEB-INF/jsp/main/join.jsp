@@ -16,6 +16,7 @@ $(function() {
     		$('#member_pw').focus();
     	}else{
     		if(checkID.trim()=="사용가능"){
+    			alert("ID [ "+$('#member_id').val()+" ] 으로 가입 되셨습니다.");
         		form.submit();
         	}else{
 				alert("아이디 중복으로 인해 가입 불가");    

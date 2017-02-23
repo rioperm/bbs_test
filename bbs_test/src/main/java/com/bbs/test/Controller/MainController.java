@@ -49,6 +49,9 @@ public class MainController {
 		mVO.setMember_id(Utils.toConvertString(member_id));
 		mVO.setMember_pw(Utils.toConvertSHA256(Utils.toConvertString(member_pw)));
 		
+		
+		
+		
 		try{
 			memberDaoMybatis.insertMember(mVO);	
 		}catch (DataAccessException e){
