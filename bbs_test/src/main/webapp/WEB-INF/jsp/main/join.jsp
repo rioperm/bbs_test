@@ -1,5 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <title>Join</title>
+
+<script type="text/javascript">
+$(function() {
+    $('.joinBtn').click(function() {
+    	var form = $('#joinForm');
+    	var checkID = $('#check').text();
+    	var checkPW = $('#member_pw').val();
+    	
+    	if(checkID==""||checkID==null||checkID.trim()=="불가능"){
+    		alert("아이디 확인 (빈값 또는 중복)");
+    		$('#member_id').focus();
+    	}else if(checkPW==""||checkPW==null){
+    		alert("비밀번호 입력");
+    		$('#member_pw').focus();
+    	}else{
+    		if(checkID.trim()=="사용가능"){
+        		form.submit();
+        	}else{
+				alert("아이디 중복으로 인해 가입 불가");    
+				$('#member_id').focus();
+				return false;
+        	}
+    	}	
+    	});
+});
+</script>
 <body>
 	가입하기 <input type="button" value="로그인" onclick="location.href='/test/login.do'">
 	<form name="joinForm" id="joinForm" action="/test/joinOk.do" method="post">
@@ -14,7 +40,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="가입"> 
+					<input type="button" value="가입" class="joinBtn"> 
 					<input type="reset" value="초기화"> 
 					<input type="button" value="뒤로가기" Onclick="javascript:history.go(-1);">
 				</td>
