@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <title>Join</title>
-
 <script type="text/javascript">
 $(function() {
     $('.joinBtn').click(function() {
@@ -33,11 +32,11 @@ $(function() {
 		<table>
 			<tr>
 				<td>ID</td>
-				<td><input type="text" name="member_id" id="member_id" size="20" onkeyup="checkIdAjax()"><span id="check"></span></td>
+				<td><input type="text" name="member_id" id="member_id" size="20" placeholder="ID" onkeyup="checkIdAjax()"><span id="check"></span></td>
 			</tr>
 			<tr>
 				<td>PW</td>
-				<td><input type="password" name="member_pw" id="member_pw" size="20"></td>
+				<td><input type="password" name="member_pw" id="member_pw" placeholder="PW" size="20"></td>
 			</tr>
 			<tr>
 				<td colspan="2">

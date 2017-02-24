@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>글쓰기</title>
-</head>
-<body>
+<script type="text/javascript">
+$(function() {
+    $('.bbsWriteFormBtn').click(function() {
+    	var form = $('#bbsWriteForm');
+    	var titleCheck = $('#title').val();
+    	var contentCheck = $('#content').val();
+    	if(titleCheck==""||titleCheck==null){
+    		alert("제목은 빈값을 넣을 수 없습니다.");
+    		 $('#title').focus();
+    	}else if(contentCheck==""||contentCheck==null){
+    		alert("내용을 입력 해 주세요.");
+    		$('#content').focus();
+    	}else{
+       		form.submit();
+        	}
+    	});
+});
+</script>
 <h1>
 	글쓰기
 </h1>
@@ -14,20 +25,18 @@
 		<table>
 			<tr>
 				<td>제목</td>
-				<td><input name="title" id="title" size="30"></td>
+				<td><input name="title" id="title" placeholder="제목 입력" size="30"></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><input name="content" id="content" size="30"></td>
+				<td><input name="content" id="content" placeholder="내용 입력" size="30"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="확인">
+					<input type="button" class="bbsWriteFormBtn" value="확인">
 					<input type="reset" value="초기화">
 					<input type="button" value="뒤로가기" Onclick="javascript:history.go(-1);">
 				</td>
 			</tr>
 		</table>
 	</form>
-</body>
-</html>
