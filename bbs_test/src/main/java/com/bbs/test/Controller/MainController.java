@@ -26,16 +26,6 @@ public class MainController {
 	@Autowired
 	private BbsDaoMybatis bbsDaoMybatis;
 	
-	@RequestMapping(value = "/main.do")
-	public String main2(Model model, HttpSession session){
-		//세션 체크 메서드 
-//		if(!Utils.sessionCheck(session))
-//			return "redirect:/";
-		List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList();
-		model.addAttribute("bbsList",bbsList);
-		return "bbs/bbsView.tiles";
-	}
-	
 	@RequestMapping(value = "/join.do")
 	public String join(){
 		return "join.tiles";
@@ -63,13 +53,13 @@ public class MainController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login(MemberVO mVO,HttpSession session){
 		if(Utils.sessionCheck(session)){
-			return "redirect:/main.do";
+			return "redirect:/bbs.do";
 		}
 		return "login.tiles";
 	}
 	
 	@RequestMapping(value = "/loginOk.do",method = RequestMethod.POST) 
-	public String loginOk(Model model, MemberVO mVO, HttpServletRequest request, HttpSession session){
+	public String loginOk(BbsVO bVO, Model model, MemberVO mVO, HttpServletRequest request, HttpSession session){
 		String member_id = (String) request.getParameter("member_id");
 		String member_pw = (String) request.getParameter("member_pw");
 		
@@ -83,7 +73,7 @@ public class MainController {
 			session.setAttribute("loginYn","Y");
 			session.setAttribute("loginNID",resultMVo.getMember_nid());
 			session.setAttribute("sessionMessage", "");
-			List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList();
+			List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList(bVO);
 			model.addAttribute("bbsList",bbsList); 
 			return "redirect:/bbs.do";
 		}

@@ -14,10 +14,15 @@
 		<result property="member_id" column="member_id"/>
 	</resultMap>
 	
-	<select id="selectBbsList" resultMap="bbsMap">
+	<select id="countBbs" resultType="java.lang.Integer">
+		select count(*) from bbs_test where bbs_useyn = 'Y'
+	</select>
+	
+	<select id="selectBbsList" resultMap="bbsMap" parameterType="int">
 		select a.*, b.member_id from bbs_test a, member b 
 		where a.member_nid = b.member_nid 
 		and a.bbs_useyn = 'Y' order by a.bbs_id desc
+		limit #{startIndex}, #{numberPerPage}
 	</select>
 	
 	<select id="selectBbsOne" resultMap="bbsMap" >

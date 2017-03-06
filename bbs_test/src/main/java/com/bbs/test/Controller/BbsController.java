@@ -2,7 +2,6 @@ package com.bbs.test.Controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,8 +23,24 @@ public class BbsController {
 	private BbsDaoMybatis bbsDaoMybatis; 
 	
 	@RequestMapping(value = "/bbs.do", method = RequestMethod.GET)
-	public String bbs(Locale locale, Model model){
-		List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList();
+	public String bbs(BbsVO bVO, Model model, HttpServletRequest request){
+		
+		int totalCount = bbsDaoMybatis.selectBbsCount();
+		model.addAttribute("totalCount",totalCount);
+		System.out.println("여기가 토탈 카운트여 " + totalCount);
+		
+		int numberPerPage = 10;
+		int totalPage = (totalCount / numberPerPage < 0) ? 1 : ((totalCount % numberPerPage > 0) ? (totalCount/numberPerPage)+1:(totalCount/numberPerPage));
+//		int viewPage = ((Integer)request.getAttribute("viewPage")).intValue();
+		int startIndex = 0 ;
+		
+				
+		System.out.println("startIndex : " + startIndex + "   NUM : " + numberPerPage);
+		
+		bVO.setNumberPerPage(numberPerPage);
+		bVO.setStartIndex(startIndex);
+		
+		List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList(bVO);
 		model.addAttribute("bbsList",bbsList);
 		return "bbs/bbsView.tiles";
 	}

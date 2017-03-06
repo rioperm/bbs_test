@@ -15,16 +15,26 @@
 	</script>
 </head>
 <body>
-<h1>
-	작성 글 확인
-	<input type="button" value="글쓰기" OnClick="window.location='/test/bbsWrite.do'">
-</h1>
+
+	<div id="bbs_div" style="padding:10px;">
+	<h1>
+		작성 글 확인
+		<input type="button" value="글쓰기" OnClick="window.location='/test/bbsWrite.do'">
+	</h1>
+		<span style="float:right;">전체 글 갯수 : ${totalCount}</span><br>
+		<div>페이지 당 갯수 
+		<select name="numberPerPage" id="numberPerPage">
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+		</select>
+	</div>
 	<table border="1" style="text-align:center;">
 		<tr>
-			<td style="width:50;">번호</td>
-			<td style="width:100;">제목</td>
-			<td style="width:150;">작성일</td>
-			<td style="width:100;">작성자</td>
+			<td style="width:10%;">번호</td>
+			<td style="width:30%;">제목</td>
+			<td style="width:10%;">작성일</td>
+			<td style="width:10%;">작성자</td>
 		</tr>
  		<c:forEach items="${bbsList}" var="bbsList">
  			<c:set var="date" value="${fn:split(bbsList.bbs_date,' ')}"/>
@@ -40,5 +50,7 @@
 			</tr> 
 		</c:forEach>
 	</table>
+	
+	</div>
 </body>
 </html>

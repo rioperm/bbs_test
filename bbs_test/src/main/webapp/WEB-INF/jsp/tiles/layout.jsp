@@ -11,7 +11,7 @@
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 <body>
-	<table border="1" align="center" width="80%;">
+	<table border="1" align="center" width="60%;" style="padding:20px;">
 		<tr>
 			<td height="30">
 				<c:if test="${!empty sessionScope.sessionMessage}">&nbsp;&nbsp;

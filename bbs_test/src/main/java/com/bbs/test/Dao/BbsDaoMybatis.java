@@ -13,8 +13,12 @@ public class BbsDaoMybatis extends SqlSessionDaoSupport {
 		
 	}
 	
-	public List<BbsVO> selectBbsList(){
-		return getSqlSession().selectList("bbsMapper.selectBbsList");
+	public List<BbsVO> selectBbsList(BbsVO bVO){
+		return getSqlSession().selectList("bbsMapper.selectBbsList", bVO);
+	}
+	
+	public int selectBbsCount(){
+		return getSqlSession().selectOne("bbsMapper.countBbs");
 	}
 	
 	public BbsVO selectBbsOne(BbsVO bVO){
