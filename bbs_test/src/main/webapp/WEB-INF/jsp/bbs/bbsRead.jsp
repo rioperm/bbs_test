@@ -9,15 +9,30 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 	<script type="text/javascript">
 		$(function() {
+	        
+	        $('.backBtn').click(function() {
+	        	var form = $('#readForm');
+	        	form.attr('action','bbs.do');
+	        	form.submit();
+	        });
+	        
+	        $('.modBtn').click(function() {
+	        	/* window.location.href=("/test/bbsModify.do?modifyId="+$(this).attr('alt')); */
+				var clickId = $(this).attr("alt");
+	        	$('#modifyId').val(clickId);
+	        	alert(clickId);
+	        	var form = $('#readForm');
+	        	form.attr('action','bbsModify.do');
+	        	form.submit();
+	        });
+
 	        $('.delBtn').click(function() {
 	        	var form = $('#readForm');
-	        	form.attr('action','/test/bbsDelete.do');
+	        	form.attr('action','bbsDelete.do');
 	        	form.submit();
 	        	
 	        });
-	        $('.modBtn').click(function() {
-	        	window.location.href=("/test/bbsModify.do?modifyId="+$(this).attr('alt'));
-	        });
+	        
 	    });
 	</script>
 </head>
@@ -27,6 +42,7 @@
 	글 읽기
 </h1>
 	<form id="readForm" name="readForm" action="/test/bbsRead.do" method="post" >
+		<input type="hidden" name="modifyId" value="${readOne.bbs_id}">
 		<input type="hidden" name="deleteId" value="${readOne.bbs_id}">
 			<table border="1" style="text-align:center;">
 			<tr>
@@ -47,7 +63,7 @@
 			</tr>
 			<tr>
 				<td colspan='2'>
-					<input type="button" value="뒤로가기" Onclick="location.href='/test/main.do'">
+					<input type="button" value="뒤로가기" class="backBtn">
 					<input type="button" value="수정하기" class="modBtn" alt="${readOne.bbs_id}">
 					<input type="button" value="삭제하기" class="delBtn" alt="${readOne.bbs_id}">
 				</td>

@@ -3,3 +3,11 @@
 .viewTd{
 	cursor:pointer;
 }
+
+.pageLink{
+	cursor:pointer;
+}
+
+.boldFont{
+	font-weight:bold;
+}
