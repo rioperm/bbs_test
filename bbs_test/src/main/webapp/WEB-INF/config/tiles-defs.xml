@@ -7,6 +7,7 @@
 		<put-attribute name="sessionCheck" value="/WEB-INF/jsp/tiles/sessionCheck.jsp" />
 		<put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp" />
 		<put-attribute name="main" value="" />
+		<put-attribute name="paging" value="" />
 		<put-attribute name="footer" value="/WEB-INF/jsp/tiles/footer.jsp" />
 	</definition>
 
@@ -32,4 +33,11 @@
 	<definition name="join.tiles" extends="simpleTile">
 		<put-attribute name="main" value="/WEB-INF/jsp/main/join.jsp" />
 	</definition>
+	
+	<definition name="bbs/bbsView.tiles" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/jsp/bbs/bbsView.jsp" />
+		<put-attribute name="paging" value="/WEB-INF/jsp/tiles/paging.jsp" />
+	</definition>
+	
+	
 </tiles-definitions> 

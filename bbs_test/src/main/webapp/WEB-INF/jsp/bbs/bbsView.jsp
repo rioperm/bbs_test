@@ -56,14 +56,14 @@
 		작성 글 확인
 		<input type="button" value="글쓰기" class="writeBtn">
 	</h1>
-		<div>페이지 당 갯수 
+		<%-- <div>페이지 당 갯수 
 			<select name="selectNumberPerPage" id="selectNumberPerPage">
 				<option value="10" <c:if test="${numberPerPage eq 10}">selected="selected"</c:if>>10</option>
 				<option value="20" <c:if test="${numberPerPage eq 20}">selected="selected"</c:if>>20</option>
 				<option value="30" <c:if test="${numberPerPage eq 30}">selected="selected"</c:if>>30</option>
 			</select>
 			<span style="float:right;">전체 글 갯수 : ${totalCount}</span>
-		</div>
+		</div> --%>
 		<table border="1" style="text-align:center;">
 			<tr>
 				<td style="width:10%;">번호</td>

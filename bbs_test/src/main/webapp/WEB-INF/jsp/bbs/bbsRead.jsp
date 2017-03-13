@@ -20,7 +20,6 @@
 	        	/* window.location.href=("/test/bbsModify.do?modifyId="+$(this).attr('alt')); */
 				var clickId = $(this).attr("alt");
 	        	$('#modifyId').val(clickId);
-	        	alert(clickId);
 	        	var form = $('#readForm');
 	        	form.attr('action','bbsModify.do');
 	        	form.submit();
@@ -69,7 +68,7 @@
 				</td>
 			</tr>
 				</table>
-		
+		<input type="hidden" value="${viewPage}" name="viewPage" id="viewPage"/>
 	</form>
 	
 </body>

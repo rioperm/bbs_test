@@ -39,4 +39,5 @@ $(function() {
 				</td>
 			</tr>
 		</table>
+		<input type="hidden" value="${viewPage}" name="viewPage" id="viewPage"/>
 	</form>

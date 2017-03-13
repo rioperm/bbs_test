@@ -11,3 +11,7 @@
 .boldFont{
 	font-weight:bold;
 }
+
+.pageLinkSpan{
+	cursor:pointer;
+}

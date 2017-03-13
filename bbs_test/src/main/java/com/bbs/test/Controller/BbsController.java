@@ -28,35 +28,38 @@ public class BbsController {
 		
 		int numberPerPage = 10 ;
 		int viewPage = 1;
-		
-		if(request.getParameter("numberPerPage") != null){
-			
-			numberPerPage = Integer.parseInt((String)request.getParameter("numberPerPage"));
-		}
+//		if(request.getParameter("numberPerPage") != null){
+//			numberPerPage = Integer.parseInt((String)request.getParameter("numberPerPage"));
+//		}
 		
 		if(request.getParameter("viewPage") != null){
 			viewPage = Integer.parseInt((String)request.getParameter("viewPage"));
-			System.out.println("숫자클릭  "+viewPage);
-			if(request.getParameter("pageLinkSpan").equals("pageLeft")){
-				viewPage -= 10;
-			}else if(request.getParameter("pageLinkSpan").equals("pageRight")){
-				viewPage += 10;
+			if(request.getParameter("pageLinkSpan")!=null){
+				String pageLinkSpan=request.getParameter("pageLinkSpan");
+				if(pageLinkSpan.equals("pageLeft")){
+					viewPage = ((viewPage-10)%10 )== 0 ? ((viewPage-10)/11)*10 +10 : ((viewPage-10)/10)*10+10; 
+				}else if(pageLinkSpan.equals("pageRight")){
+					viewPage = ((viewPage+10)%10 )== 0 ? ((viewPage+10)/11)*10 +1 : ((viewPage+10)/10)*10+1;
+				}	
 			}
 		}
 		
+		int startIndex = (viewPage-1) * numberPerPage;
+
 		int totalPageCheck = totalCount / numberPerPage; 
 		int totalPage = (totalPageCheck < 0) ? 1 : ((totalCount % numberPerPage > 0) ? totalPageCheck+1:totalPageCheck);
-		int startIndex = (viewPage-1) * numberPerPage +1 ;
-		int startPage = (viewPage / 10 > 0) ? (viewPage/10)*10 +1 : ((viewPage/10 ==0)?(viewPage/10)-1:1); 
-		int lastPage = startPage + 9; 
+		int startPage = ((startIndex / numberPerPage+1) / 10 > 0) ? (((startIndex / numberPerPage+1)%10==0) ?  (((startIndex / numberPerPage+1)/11)*10+1):((startIndex / numberPerPage+1) / 10) * 10 + 1) : 1;
+				//현재 페이지 startIndex / numberPerPage+1;
+		int lastPage = (startPage + 9) < totalPage ? (startPage+9) : totalPage;
 		
-//		if(totalPage 
+//		int startPage = (viewPage / 10 > 0) ? ((viewPage%10==0) ?  ((viewPage/11)*10+1):(viewPage / 10) * 10 + 1) : 1; 
+//		int lastPage = (startPage + 9) < totalPage ? (startPage+9) : totalPage; 
 		
 		bVO.setNumberPerPage(numberPerPage);
 		bVO.setStartIndex(startIndex);
 		
 		System.out.println("토탈카운트 " + totalCount+ "  totalPage : " + totalPage+"  startIndex : " + startIndex);
-		System.out.println("시작인덱스 " + startIndex+ "  viewPage : " + viewPage+"  startPage : " + startPage);
+		System.out.println("시작인덱스 " + startIndex+ "  viewPage : " + viewPage+"  startPage : " + startPage+"  lastPage : " + lastPage);
 		List<BbsVO> bbsList = bbsDaoMybatis.selectBbsList(bVO);
 
 		model.addAttribute("startPage",startPage);
@@ -69,7 +72,7 @@ public class BbsController {
 		return "bbs/bbsView.tiles";
 	}
 	
-	@RequestMapping(value="/bbsWrite.do",method=RequestMethod.POST)
+	@RequestMapping(value="/bbsWrite.do")
 	public String bbsWrite(HttpServletRequest request, Model model){
 		
 		model.addAttribute("numberPerPage",request.getParameter("numberPerPage"));
@@ -101,10 +104,6 @@ public class BbsController {
 	@RequestMapping(value="/bbsRead.do")
 	public String bbsRead(BbsVO bVO, Model model, HttpServletRequest request){
 		String select_id = (String) request.getParameter("readId");
-		
-		model.addAttribute("numberPerPage",request.getParameter("numberPerPage"));
-		model.addAttribute("viewPage",request.getParameter("viewPage"));
-		model.addAttribute("totalPage",request.getParameter("totalPage"));
 		
 		bVO.setBbs_id(select_id);
 		BbsVO readOne = bbsDaoMybatis.selectBbsOne(bVO);

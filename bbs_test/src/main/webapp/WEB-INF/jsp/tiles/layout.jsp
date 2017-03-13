@@ -20,7 +20,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td><tiles:insertAttribute name="main"/></td>
+			<td><tiles:insertAttribute name="main"/><br>
+			<tiles:insertAttribute name="paging"/><br>
+			</td>
 		</tr>
 		<tr>
 			<td><tiles:insertAttribute name="footer"/></td>
